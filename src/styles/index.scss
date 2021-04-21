@@ -1,6 +1,13 @@
+@import './variables.scss';
+
 body {
     line-height: 1;
     font-size: 14px;
     font-family: "SourceHanSerifCN-Medium", serif, "Simsun", "Arial", "\u5b8b\u4f53", Tahoma, Geneva, sans-serif;
     color: #333;
+}
+
+.peng-flex-vertical-center {
+    display: flex;
+    align-items: center;
 }

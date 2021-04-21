@@ -1,0 +1,8 @@
+// 声明css变量
+// 网站主题色，参考北大
+$topic-color: #94070a;
+
+
+:export {
+    topicColor: $topic-color
+}
