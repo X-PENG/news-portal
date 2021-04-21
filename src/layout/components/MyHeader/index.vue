@@ -45,7 +45,7 @@ import MyNav from './components/MyNav'
 @import '~@/styles/variables.scss';
 
 .app-header {
-    height: 120px;
+    // height: 120px;//不要固定高度，自适应最好
     background: $topic-color;
     display: flex;
     display: -webkit-flex;
@@ -57,7 +57,7 @@ import MyNav from './components/MyNav'
     }
 
     .app-header-content {
-        width: 75%;
+        width: $content-percentage;
         padding: 10px 5px;
         display: flex;
         align-items: center;

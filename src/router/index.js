@@ -5,12 +5,19 @@ Vue.use(VueRouter);
 
 //布局组件
 import Layout from '@/layout'
+import Home from '@/views/home'
 
 
 const routes = [
   {
-    path: "/",
-    component: Layout
+    path: "",
+    component: Layout,
+    children: [
+      {
+        path: "/",
+        component: Home,       
+      }
+    ]
   }
 ];
 

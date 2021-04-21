@@ -68,6 +68,7 @@
     background-color: inherit;
     border: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
 
     .el-menu-item {
