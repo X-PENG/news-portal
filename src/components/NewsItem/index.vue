@@ -123,7 +123,7 @@
             z-index: 11;
         } 
 
-        /** 
+        /**
         .imgHover:hover:after {
             height: 106%;
             top: -3%;
