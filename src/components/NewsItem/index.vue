@@ -4,17 +4,17 @@
             <div class="item-lf">
                 <span class="item-date"> 2021/04/<strong> 15</strong></span>
             </div>
-            <div class="item-img">
+            <div v-if="isShowImg" class="item-img" :class="{'item-img-when-ImgShowRight': isShowImg && imgShowRight}">
                 <a class="imgResponsive" href="http://news.pku.edu.cn/xwzh/b0d100f86a94487596d5f023157d8565.htm">
                     <img src="http://news.pku.edu.cn/images/2021-04/1f637c857f0c4132ae86c2e5cad6eec5.jpeg" alt="" title="" style="outline: red dashed 1px;">
                 </a>
             </div>
-            <div class="item-txt">
+            <div class="item-txt" :class="{'item-txt-when-ImgShowRight': isShowImg && imgShowRight, 'item-txt-when-notShowImg': !isShowImg}">
                 <div>
                     <h3><a href="http://news.pku.edu.cn/xwzh/b0d100f86a94487596d5f023157d8565.htm">花儿为什么这样红——北京大学党史教育全景图</a></h3>
                     
                 </div>
-                <p> 花儿为什么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿...  </p>
+                <p> 花儿为什么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿... 么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿... 么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿... 么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿... 么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿...  </p>
             </div>
         </section>
     </div>
@@ -24,15 +24,31 @@
     export default {
         //该组件表示新闻列表中的一个新闻
         name:'NewsItem',
+        props: {
+            //是否在右边显示新闻图片
+            imgShowRight: {
+                type: Boolean,
+                default: false
+            },
+            //新闻信息
+            newsInfo: {
+                type: Object,
+                default: null
+            }
+        },
         data() {
             return {
-
+                //是否显示图片
+                isShowImg: true,
             }
         }
     }
 </script>
 
 <style lang="scss">
+//内容的最小高度。即窗口最宽时的高度
+$content-min-height: 180px;
+
 .news-item {
     font-family: 'Microsoft YaHei',SimSun,SimHei ,"STHeiti Light",STHeiti,"Lucida Grande", Tahoma,Arial, Helvetica, sans-serif;
 
@@ -40,7 +56,7 @@
         padding: 38px 0;
         border-bottom: 1px solid #ededed;
         transition: all 0.3s ease-in-out;
-        min-height: 180px;
+        min-height: $content-min-height;
     }
 
     /**可以不用，重复定义了
@@ -165,6 +181,16 @@
             margin-left: 4%;//使用百分比布局
             position: relative;
             z-index: 30;
+            //当窗口变窄，图片宽度变小，高度也一定变小，而窗口最宽时，图片高度最大，且是内容高度$content-min-height，所以max-height设置成$content-min-height即可
+            max-height: $content-min-height;
+            overflow: hidden;
+
+            //当在右边显示图片时的样式
+            &.item-img-when-ImgShowRight {
+                position: absolute;
+                right: 0;
+                // top: 38px;
+            }
 
             .imgResponsive {
                 padding-bottom: 56.25%
@@ -192,9 +218,21 @@
 
         .item-txt {
             // margin-left: 495px;
-            margin-left: 48%;//使用百分比布局
+            margin-left: 48%;//使用百分比布局。显示文本的盒子占52% = 100% - 48%
             position: relative;
             z-index: 30;
+
+            //当在右边显示图片时的样式
+            &.item-txt-when-ImgShowRight {
+                margin-left: 14%;
+                margin-right: 34%;
+            }
+
+            //当不显示图片时的样式
+            &.item-txt-when-notShowImg {
+                margin-left: 14%;
+                margin-right: 0%;
+            }
 
             h3 {
                 font-size: 18px;
