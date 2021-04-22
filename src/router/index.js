@@ -7,15 +7,14 @@ Vue.use(VueRouter);
 import Layout from '@/layout'
 import Home from '@/views/home'
 
-
 const routes = [
   {
     path: "",
     component: Layout,
     children: [
       {
-        path: "/",
-        component: Home,       
+        path: '/',
+        component: Home,
       }
     ]
   }
