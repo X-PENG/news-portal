@@ -1,6 +1,6 @@
 <template>
 <!-- 轮播图片 -->
-    <el-carousel 
+    <el-carousel
         ref="carousel"
         class="carousel-box"
         :height="carouselHeight"
@@ -79,8 +79,8 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
                             console.log(that.screenWidth)
                             let newWidth = that.$refs.carousel.$el.clientWidth
                             console.log('轮播图新的宽度')
-                            console.log(newWidth) 
-                            that.carouselHeight =  (newWidth * percentage) + 'px'                
+                            console.log(newWidth)
+                            that.carouselHeight =  (newWidth * percentage) + 'px'
                         })
                         that.timer = false
                     }, 500)

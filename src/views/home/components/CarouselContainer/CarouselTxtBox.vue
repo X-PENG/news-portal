@@ -62,7 +62,7 @@
     a {
         outline: none;
         text-decoration: none;
-        color: #323232;        
+        color: #323232;
     }
 
     .slide-txt {
@@ -72,7 +72,7 @@
         padding: 20px 0;
         position: relative;
         transition: all 0.3s ease;
-        font-family: 'Microsoft YaHei',SimSun,SimHei ,"STHeiti Light",STHeiti,"Lucida Grande", Tahoma,Arial, Helvetica, sans-serif;        
+        font-family: 'Microsoft YaHei',SimSun,SimHei ,"STHeiti Light",STHeiti,"Lucida Grande", Tahoma,Arial, Helvetica, sans-serif;
 
         * {
             margin: 0;
@@ -96,7 +96,7 @@
                 height: 66px;
                 overflow: hidden;
                 color: #787878;
-            }            
+            }
         }
 
         h3 {
@@ -127,7 +127,7 @@
                     color: #94070a;
                     text-decoration: none;
                 }
-            }            
+            }
         }
         .item-date-view {
             position: absolute;
@@ -144,9 +144,9 @@
                 display: inline-block;
                 font-size: 12px;
                 margin-right: 20px;
-                font-weight: normal;                
+                font-weight: normal;
             }
-        }                     
+        }
     }
 }
 </style>

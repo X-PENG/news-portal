@@ -81,9 +81,9 @@ import CarouselTxtBox from './CarouselTxtBox'
     }
     .flex-control-paging li {
         a {
-            width: 29px; 
+            width: 29px;
             height: 12px; 
-            display: block; 
+            display: block;
             cursor: pointer;
             border-right: 1px solid #515151;
             line-height: 12px;
@@ -94,14 +94,16 @@ import CarouselTxtBox from './CarouselTxtBox'
             border-right: 1px solid #bbb;
 
             &:hover {
-                color:#94070a; 
+                color:#94070a;
             }
 
             &.flex-active { cursor: default;color:#94070a; }
+
         }
          
-        &:first-child{*border-left: 1px solid #bbb;}
+        &:first-child{
+            *border-left: 1px solid #bbb;
+        }
     }
-
 }
 </style>
