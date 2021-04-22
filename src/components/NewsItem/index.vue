@@ -133,7 +133,8 @@
         */
 
         .item-lf {
-            width: 99px;
+            // width: 99px;
+            width: 10%;//使用百分比布局
             float: left;
             border-top: 2px solid #94070a;
             padding-top: 10px;
@@ -152,13 +153,16 @@
                 color: #94070a;
                 font-size: 30px;
                 padding: 0 0 0 3px;
+                display: block;
             }            
         }
 
         .item-img {
-            width: 320px;
+            // width: 320px;
+            width: 31%;//使用百分比布局
             float: left;
-            margin-left: 40px;
+            // margin-left: 40px;
+            margin-left: 4%;//使用百分比布局
             position: relative;
             z-index: 30;
 
@@ -187,7 +191,8 @@
         }
 
         .item-txt {
-            margin-left: 495px;
+            // margin-left: 495px;
+            margin-left: 48%;//使用百分比布局
             position: relative;
             z-index: 30;
 
