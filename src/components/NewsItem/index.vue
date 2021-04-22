@@ -1,8 +1,11 @@
 <template>
-    <div class="news-item">
+    <div class="news-item" :class="{'news-item-when-ImgShowRight': !isShowImg || imgShowRight}">
         <section class="imgHover">
             <div class="item-lf">
-                <span class="item-date"> 2021/04/<strong> 15</strong></span>
+                <span class="item-date">
+                    2021/04/
+                    <strong>15</strong>
+                </span>
             </div>
             <div v-if="isShowImg" class="item-img" :class="{'item-img-when-ImgShowRight': isShowImg && imgShowRight}">
                 <a class="imgResponsive" href="http://news.pku.edu.cn/xwzh/b0d100f86a94487596d5f023157d8565.htm">
@@ -48,7 +51,8 @@
 <style lang="scss">
 //内容的最小高度。即窗口最宽时的高度
 // 北大的 高:宽 = 180/970 = 0.185567
-$content-min-height: 213px;
+$content-min-height: 212.3px;
+// $content-min-height: 189px;
 
 .news-item {
     font-family: 'Microsoft YaHei',SimSun,SimHei ,"STHeiti Light",STHeiti,"Lucida Grande", Tahoma,Arial, Helvetica, sans-serif;
@@ -164,6 +168,7 @@ $content-min-height: 213px;
                 color: #8c8c8c;
                 text-align: right;
                 padding-bottom: 2px;
+                line-height: 36px;
             }
 
             .item-date strong {
@@ -266,6 +271,11 @@ $content-min-height: 213px;
         .item-lf {
             border-color: #FFFFFF;
         }
+    }
+
+    //设置右边显示图片时红框的背景图
+    &.news-item-when-ImgShowRight .imgHover:after {
+        background: url(~@/assets/li_bg3.svg) no-repeat 25px center;
     }
 }
 </style>

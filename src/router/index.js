@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 //布局组件
 import Layout from '@/layout'
 import Home from '@/views/home'
-
+import NewsList from '@/views/NewsList'
 const routes = [
   {
     path: "",
@@ -15,6 +15,9 @@ const routes = [
       {
         path: '/',
         component: Home,
+      }, {
+        path: '/newsList',
+        component: NewsList
       }
     ]
   }
