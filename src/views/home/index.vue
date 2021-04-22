@@ -4,7 +4,8 @@
             <Headlines/>
         </div>
         <div class="carousel-container">
-            <MyCarouselBox style="width:85%"/>
+            <!-- <MyCarouselBox style="width:85%"/> -->
+            <CarouselContainer style="width:85%"/>
         </div>
 
         <NewsItem/>
@@ -14,13 +15,14 @@
 </template>
 
 <script>
-import MyCarouselBox from './components/MyCarouselBox'
+// import MyCarouselBox from './components/MyCarouselBox'
 import Headlines from './components/Headlines'
 import NewsItem from '@/components/NewsItem'
+import CarouselContainer from './components/CarouselContainer'
 
     export default {
         name:'Home',
-        components: { MyCarouselBox, Headlines, NewsItem },
+        components: { CarouselContainer, Headlines, NewsItem },
         data() {
             return {
             }

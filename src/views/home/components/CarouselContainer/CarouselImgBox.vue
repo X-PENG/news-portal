@@ -1,7 +1,14 @@
 <template>
-    <el-carousel ref="carousel" class="carousel-box" :height="carouselHeight">
-        <el-carousel-item v-for="(item, index) in imgResources" :key="'轮播项目'+index">
-              <a :href="item" target="_blank">
+<!-- 轮播图片 -->
+    <el-carousel 
+        ref="carousel"
+        class="carousel-box"
+        :height="carouselHeight"
+        indicator-position="none"
+        @change="handleChange"
+        >
+        <el-carousel-item v-for="(item, index) in imgResources" :key="'轮播图片'+index">
+            <a :href="item" target="_blank">
                 <el-image
                     :src="item"
                 >
@@ -9,13 +16,12 @@
                         <i class="el-icon-picture-outline"></i>
                     </div>
                 </el-image>
-              </a>
+            </a>
         </el-carousel-item>
     </el-carousel>
 </template>
 
 <script>
-
 /**
  * 尽量小比例，不要太高，否则轮播组件太高，而图片没有那么高；
  * 比例小不要紧，若图片太高的话，溢出部分会隐藏，图片还是原比例显示
@@ -23,12 +29,8 @@
 const percentage = 0.561//轮播图 高:宽 参照北大的
 
     export default {
-        name:'MyCarouselBox',
-        props: {
-            width: {
-                default: ''
-            }
-        },
+        //轮播图片的盒子
+        name:'CarouselImgBox',
         data() {
             return {
                 screenWidth: undefined,
@@ -43,14 +45,15 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
             this.$nextTick(() => {
                 // 获取轮播组件
                 let carousel = this.$refs.carousel
+                console.log('carousel组件')
                 console.log(carousel)
-                console.log('carousel 宽度')
+                console.log('初始carousel宽度')
                 // $el是Vue 实例使用的根 DOM 元素
                 let carouselWidth = carousel.$el.clientWidth
                 console.log(carouselWidth)
                 //设置轮播组件的高度
                 this.carouselHeight =  (carouselWidth * percentage) + 'px'
-            })            
+            })
             const that = this
             //处理resize事件
             window.onresize = () => {
@@ -83,9 +86,20 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
                     }, 500)
                 }
             }
+        },
+        methods: {
+            handleChange(newIndex, oldIndex) {
+                console.log('切换图片')
+                console.log('newIndex = ' + newIndex)
+                console.log('oldIndex = ' + oldIndex)
+                this.$emit('change-img', newIndex)
+            },
+            setActiveItem(index) {
+                console.log('设置显示的图片 index=' + index)
+                this.$refs.carousel.setActiveItem(index)
+            }
         }
     }
-
 
 const imgs = [
     'http://news.pku.edu.cn/images/2021-03/b816f03ccb78427e8a608a61af83a454.jpg',
@@ -96,7 +110,7 @@ const imgs = [
     'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
     'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
     'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-]    
+]        
 </script>
 
 <style lang="scss">
@@ -105,10 +119,13 @@ const imgs = [
      .el-image {
          width: 100%;
          height: 100%;
+         //图片溢出的高度隐藏掉
+         overflow: hidden;
 
         img {
+            //宽度100%，填满整个盒子
             width: 100%;
-            //高度一定不能设置，否则比例就会变
+            //高度一定不能固定，否则比例就会变
             height: auto;
         }
 
