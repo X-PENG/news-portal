@@ -1,14 +1,33 @@
 <template>
     <el-carousel ref="carousel" class="carousel-box" :height="carouselHeight">
-        <el-carousel-item v-for="item in 4" :key="item">
-             <h3>{{ item }}</h3>
+        <el-carousel-item v-for="(item, index) in imgResources" :key="'轮播项目'+index">
+              <a :href="item" target="_blank">
+                <el-image
+                    :src="item"
+                >
+                    <div slot="error" class="error-image-slot">
+                        <i class="el-icon-picture-outline"></i>
+                    </div>
+                </el-image>
+              </a>
         </el-carousel-item>
+
+        
+        <!-- <el-carousel-item>
+            <div style="width: 100%; height:100%; overflow: hidden">
+                <img style="width:100%" src="http://news.jxufe.edu.cn/uploadfile/82/1618880686944.jpg" alt="">
+            </div>
+        </el-carousel-item> -->
     </el-carousel>
 </template>
 
 <script>
 
-const percentage = 0.6//轮播图 高:宽
+/**
+ * 尽量小比例，不要太高，否则轮播组件太高，而图片没有那么高；
+ * 比例小不要紧，若图片太高的话，溢出部分会隐藏，图片还是原比例显示
+ */
+const percentage = 0.561//轮播图 高:宽 参照北大的
 
     export default {
         name:'MyCarouselBox',
@@ -19,13 +38,15 @@ const percentage = 0.6//轮播图 高:宽
         },
         data() {
             return {
-                screenWidth: document.body.clientWidth,
+                screenWidth: undefined,
                 timer: null,
-                carouselHeight: '300px'
+                //动态控制轮播的高度，达到自适应
+                carouselHeight: null,
+                imgResources: imgs
             }
         },
         mounted() {
-            //在挂载完成之后，设置轮播组件的高度
+            //在挂载完成之后，获取宽度从而设置轮播组件的高度
             this.$nextTick(() => {
                 // 获取轮播组件
                 let carousel = this.$refs.carousel
@@ -71,24 +92,44 @@ const percentage = 0.6//轮播图 高:宽
             }
         }
     }
+
+
+const imgs = [
+    'http://news.pku.edu.cn/images/2021-03/b816f03ccb78427e8a608a61af83a454.jpg',
+    'http://news.pku.edu.cn/images/2021-03/b2eb70d25bed46d18b22fe4ee49b9078.jpg',
+    'http://news.pku.edu.cn/images/2021-03/18b06166d596494ca4142f02c8eebab1.jpeg',
+    'http://news.jxufe.edu.cn/uploadfile/82/1618880686944.jpg',
+    'http://www.news.zju.edu.cn/_upload/article/images/62/97/8613225d4b7893d6d7aa8b8cf3f3/706276a0-4331-494a-846f-6fe131fa11f1.jpg',
+    'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
+    'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
+    'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
+]    
 </script>
 
 <style lang="scss">
 .carousel-box {
- .el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
-  }
-  
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-  
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
+ .el-carousel__item {
+     .el-image {
+         width: 100%;
+         height: 100%;
+
+        img {
+            width: 100%;
+            //高度一定不能设置，否则比例就会变
+            height: auto;
+        }
+
+        .error-image-slot {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background: #f5f7fa;
+            color: #909399;
+            font-size: 20em;
+        }
+     }
   }
 }
 </style>

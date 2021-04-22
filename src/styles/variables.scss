@@ -1,8 +1,8 @@
 // 声明css变量
 // 网站主题色，参考北大
 $topic-color: #94070a;
-//显示内容的区域占body的百分比
-$content-percentage: 70%;
+//显示内容的区域占body的百分比。参照浙大
+$content-percentage: 78%;
 
 :export {
     topicColor: $topic-color;

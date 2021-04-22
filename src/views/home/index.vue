@@ -4,7 +4,7 @@
             <Headlines/>
         </div>
         <div class="carousel-container">
-            <MyCarouselBox style="width: 70%"/>
+            <MyCarouselBox style="width:85%"/>
         </div>
 
         <NewsItem/>
@@ -30,6 +30,8 @@ import NewsItem from '@/components/NewsItem'
 
 <style lang="scss">
 .app-index {
+    box-sizing: border-box;
+
     h1 {
         margin: 0;
     }

@@ -47,7 +47,8 @@
 
 <style lang="scss">
 //内容的最小高度。即窗口最宽时的高度
-$content-min-height: 180px;
+// 北大的 高:宽 = 180/970 = 0.185567
+$content-min-height: 213px;
 
 .news-item {
     font-family: 'Microsoft YaHei',SimSun,SimHei ,"STHeiti Light",STHeiti,"Lucida Grande", Tahoma,Arial, Helvetica, sans-serif;
