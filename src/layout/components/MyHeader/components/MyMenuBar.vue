@@ -8,11 +8,11 @@
         @select="handleSelect"
         >
             <el-menu-item
-                v-for="(item, index) in menuItems"
-                :key="item"
-                :index="menuBarId + index"
+                v-for="item in menuItems"
+                :key="menuBarId + item.id"
+                :index="menuBarId + item.id"
             >
-                {{ item }}
+                {{ item.title }}
             </el-menu-item>
         </el-menu>        
     </div>
@@ -58,6 +58,10 @@
                 this.computeDefaultActive = -1//先不选中，让父组件通过defaultActive控制选中
                 //向父组件发射事件
                 this.$emit('select-menu', index)
+                //进行路由导航
+                //因为菜单项的index = menuBarId + colId
+                let colId = index.replace(this.menuBarId, '')
+                this.$router.push({name: '栏目新闻列表', params: { colId: colId }, query: {t: new Date().getTime()}})
             }
         }
     }

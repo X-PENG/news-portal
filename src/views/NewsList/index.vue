@@ -1,20 +1,76 @@
 <template>
-    <div class="news-list">
-        <h2 class="listTitle01">头条新闻</h2>
+    <div class="news-list" 
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+    >
+        <h2 class="listTitle01">
+            {{ columnInfo.title }}
+        </h2>
 
-        <NewsItem  v-for="(item, index) in 10" :key="'新闻项'+index" :imgShowRight="false"/>
+        <NewsItem v-for="(item, index) in queryResult.records" :key="'新闻项'+index" :newsInfo="item" :imgShowRight="false"/>
     </div>
 </template>
 
 <script>
 import NewsItem from '@/components/NewsItem'
+import { newsListPageByColId } from '@/api/newsList'
+
+const defaultPage = 1
+const defaultPageSize = 10
+
+function getDefaultQueryParam() {
+    return {
+        page: defaultPage,
+        pageSize: defaultPageSize
+    }
+}
 
     export default {
         name:'NewsList',
         components: { NewsItem },
+        props: {
+            colId: {
+                type: String,
+                default: undefined,
+                required: true
+            }
+        },
         data() {
             return {
-
+                loading: false,
+                queryParam: getDefaultQueryParam(),
+                columnInfo: {},
+                queryResult: {
+                    total: 0,
+                    current: defaultPage,
+                    size: defaultPageSize,
+                    records: []                  
+                }
+            }
+        },
+        created() {
+            console.log('colId = ' + this.colId)
+            this.init()
+        },
+        methods: {
+            init() {
+                this.queryList()
+            },
+            queryList() {
+                this.loading = true
+                newsListPageByColId(this.colId, this.queryParam).then(resp => {
+                    this.columnInfo = resp.column
+                    //是一个分页对象
+                    this.queryResult = resp.news
+                    this.loading = false
+                }).catch(error => {
+                    this.loading = false
+                    this.$message({
+                        message: '加载新闻列表失败',
+                        type: 'error'
+                    })
+                })
             }
         }
     }
@@ -24,6 +80,7 @@ import NewsItem from '@/components/NewsItem'
 .news-list {
     box-sizing: border-box;
     // padding: 0 5%;
+    min-height: 400px;
 
     h2 {
         margin: 0;

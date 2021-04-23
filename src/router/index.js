@@ -16,8 +16,10 @@ const routes = [
         path: '/',
         component: Home,
       }, {
-        path: '/newsList',
-        component: NewsList
+        path: '/newsList/:colId',
+        name: '栏目新闻列表',
+        component: NewsList,
+        props: true
       }
     ]
   }

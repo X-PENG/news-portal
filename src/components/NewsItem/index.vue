@@ -3,21 +3,20 @@
         <section class="imgHover">
             <div class="item-lf">
                 <span class="item-date">
-                    2021/04/
-                    <strong>15</strong>
+                    {{ yearOfTime + '/' + monthOfTime + '/' }}
+                    <strong>{{ dateOfTime }}</strong>
                 </span>
             </div>
             <div v-if="isShowImg" class="item-img" :class="{'item-img-when-ImgShowRight': isShowImg && imgShowRight}">
                 <a class="imgResponsive" href="http://news.pku.edu.cn/xwzh/b0d100f86a94487596d5f023157d8565.htm">
-                    <img src="http://news.pku.edu.cn/images/2021-04/1f637c857f0c4132ae86c2e5cad6eec5.jpeg" alt="" title="" style="outline: red dashed 1px;">
+                    <img :src="imgForShowOnNewsList" alt="加载失败" title="" style="outline: red dashed 1px;">
                 </a>
             </div>
             <div class="item-txt" :class="{'item-txt-when-ImgShowRight': isShowImg && imgShowRight, 'item-txt-when-notShowImg': !isShowImg}">
                 <div>
-                    <h3><a href="http://news.pku.edu.cn/xwzh/b0d100f86a94487596d5f023157d8565.htm">花儿为什么这样红——北京大学党史教育全景图</a></h3>
-                    
+                    <h3><a href="http://news.pku.edu.cn/xwzh/b0d100f86a94487596d5f023157d8565.htm">{{ newsInfo.title }}</a></h3>
                 </div>
-                <p> 花儿为什么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿... 么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿... 么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿... 么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿... 么这样红——北京大学党史教育全景图 复原后的李大钊图书馆主任办公室 资料图片 《李大钊年谱》 资料图片 北大师生排队为李大钊雕像献花  资料图片 这几天，一部《花儿...  </p>
+                <p>{{ newsInfo.articleFragmentForShow }}</p>
             </div>
         </section>
     </div>
@@ -36,13 +35,51 @@
             //新闻信息
             newsInfo: {
                 type: Object,
-                default: null
+                default: null,
+                required: true
             }
+        },
+        created(){
+            console.log('新闻信息')
+            console.log(this.newsInfo)
         },
         data() {
             return {
                 //是否显示图片
-                isShowImg: true,
+                // isShowImg: true,
+            }
+        },
+        computed: {
+            imgForShowOnNewsList() {
+                let imgUrl = this.newsInfo.imgForShowOnNewsList
+                if(!imgUrl || (imgUrl = imgUrl.trim()) === '') {
+                    return null
+                }
+                return imgUrl
+            },
+            isShowImg() {
+                return !!this.imgForShowOnNewsList
+            },
+            pubTime() {
+                let time = this.newsInfo.showPubTime
+                return new Date(time)
+            },
+            yearOfTime() {
+                return this.pubTime.getFullYear()
+            },
+            monthOfTime(){
+                let month = this.pubTime.getMonth() + 1 + ''
+                if(month.length == 1) {
+                    return '0'+month
+                }
+                return month
+            },
+            dateOfTime() {
+                let date = this.pubTime.getDate() + ''
+                if(date.length == 1) {
+                    return '0'+date
+                }
+                return date
             }
         }
     }

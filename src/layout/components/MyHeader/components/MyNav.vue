@@ -7,6 +7,7 @@
 
 <script>
 import MyMenuBar from './MyMenuBar'
+import { cols } from '@/api/homePage'
 
 export default {
   name: "MyNav",
@@ -15,15 +16,30 @@ export default {
     return {
         //由该组件的activeIndex属性统一控制两个子组件<MyMenuBar/>的激活菜单
         activeIndex: "-1",
+        allMeuns: [],
     };
   },
   computed: {
       menu1() {
-        return menu1
+        let len = this.allMeuns.length
+        let end = parseInt((len + 1)/2)
+        return this.allMeuns.slice(0, end)
       },
       menu2() {
-        return menu2
+        let len = this.allMeuns.length
+        let start = parseInt((len + 1)/2)
+        return this.allMeuns.slice(start, len)    
       }
+  },
+  created() {
+      cols().then(resp => {
+          this.allMeuns = resp
+      }).catch(error => {
+          this.$message({
+            message: '查询新闻栏目失败',
+            type: 'error'
+          })
+      })
   },
   methods: {
       handleSelectMenu(menuItemIndex) {

@@ -7,22 +7,17 @@
             <!-- <MyCarouselBox style="width:85%"/> -->
             <CarouselContainer style="width:85%"/>
         </div>
-
-        <NewsItem/>
-        <br/>
-        <NewsItem/>
     </div>
 </template>
 
 <script>
 // import MyCarouselBox from './components/MyCarouselBox'
 import Headlines from './components/Headlines'
-import NewsItem from '@/components/NewsItem'
 import CarouselContainer from './components/CarouselContainer'
 
     export default {
         name:'Home',
-        components: { CarouselContainer, Headlines, NewsItem },
+        components: { CarouselContainer, Headlines },
         data() {
             return {
             }
