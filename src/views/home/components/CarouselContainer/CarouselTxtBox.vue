@@ -37,7 +37,7 @@
         },
         methods: {
             setActiveItem(index) {
-                console.log('设置子组件的ActiveItem index=' + index)
+                // console.log('设置子组件的ActiveItem index=' + index)
                 this.$refs.carouselForNewsInfo.setActiveItem(index)
             }
         },

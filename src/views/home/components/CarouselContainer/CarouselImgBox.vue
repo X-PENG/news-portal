@@ -89,13 +89,13 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
         },
         methods: {
             handleChange(newIndex, oldIndex) {
-                console.log('切换图片')
-                console.log('newIndex = ' + newIndex)
-                console.log('oldIndex = ' + oldIndex)
+                // console.log('切换图片')
+                // console.log('newIndex = ' + newIndex)
+                // console.log('oldIndex = ' + oldIndex)
                 this.$emit('change-img', newIndex)
             },
             setActiveItem(index) {
-                console.log('设置显示的图片 index=' + index)
+                // console.log('设置显示的图片 index=' + index)
                 this.$refs.carousel.setActiveItem(index)
             }
         }

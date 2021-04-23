@@ -34,7 +34,7 @@ import CarouselTxtBox from './CarouselTxtBox'
         },
         methods: {
             handleChangeImg(newIndex) {
-                console.log('监听到子组件切换图片 newIndex=' + newIndex)
+                // console.log('监听到子组件切换图片 newIndex=' + newIndex)
                 this.$refs.carouselTxtBox.setActiveItem(newIndex)
                 this.activeIndex = newIndex
             },
