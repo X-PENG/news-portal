@@ -3,7 +3,11 @@
        <div class="app-header-content">
            <el-row type="flex" align="middle" style="width:100%" >
                <el-col :span="7">
-                   <h1>Logo</h1>
+                   <h1 class="app-logo">
+                       <router-link :to="{ name: '首页'}">
+                            Logo
+                       </router-link>
+                   </h1>
                </el-col>
                <el-col :span="17">
                    <!-- <div class="app-header-tool"> -->
@@ -54,6 +58,14 @@ import MyNav from './components/MyNav'
 
     * {
         margin: 0;
+    }
+
+    .app-logo {
+        a {
+            outline: none;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
     }
 
     .app-header-content {

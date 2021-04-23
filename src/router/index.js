@@ -14,6 +14,7 @@ const routes = [
     children: [
       {
         path: '/',
+        name: '首页',
         component: Home,
       }, {
         path: '/newsList/:colId',

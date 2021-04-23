@@ -1,20 +1,40 @@
 <template>
-  <div class="headLine">
+  <div class="headLine" v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading">
     <span class="headerLine-label">头条</span>
     <h2>
       <a href="xwzh/2706e0ba60304a41859b2a083f13226c.htm">
-            花儿为什么这样红——北京大学党史教育全景图
+            {{ newsInfo.title }}
         </a>
     </h2>
   </div>
 </template>
 
 <script>
+import { getHeadlines } from '@/api/homePage'
+
     export default {
-    name: "Headlines",
-    data() {
-        return {};
-    },
+      name: "Headlines",
+      data() {
+          return {
+            loading: false,
+            newsInfo: { }
+          };
+      },
+      created() {
+        this.loading = true
+        getHeadlines().then(resp => {
+            this.newsInfo = resp
+            this.loading = false
+        }).catch(error => {
+          this.loading = false
+          this.$message({
+            message: '头条加载失败',
+            type: 'error'
+          })
+        })
+      }
     };
 </script>
 
@@ -29,6 +49,7 @@
   margin-top: 20px;
   line-height: 1.2;
   position: relative;
+  min-height: 50px;
 
   .headerLine-label {
     width: 28px;
