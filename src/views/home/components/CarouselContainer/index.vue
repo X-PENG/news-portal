@@ -1,12 +1,12 @@
 <template>
     <div>
-        <CarouselImgBox ref="carouselImgBox" @change-img="handleChangeImg"/>
+        <CarouselImgBox ref="carouselImgBox" :imgList="imgListForCarousel" @change-img="handleChangeImg"/>
 
-        <CarouselTxtBox ref="carouselTxtBox"/>
+        <CarouselTxtBox ref="carouselTxtBox" :newsInfoList="newsList"/>
 
         <div class="carousel-pagination">
             <ol class="flex-control-nav flex-control-paging">
-                <li v-for="(item, index) in 8" :key="'li'+index" @click="handleClick(index)">
+                <li v-for="(item, index) in newsList.length" :key="'li'+index" @click="handleClick(index)">
                    <a :class="{'flex-active': (activeIndex == index)}">{{ index + 1 }}</a>
                 </li>
             </ol>
@@ -17,6 +17,9 @@
 <script>
 import CarouselImgBox from './CarouselImgBox'
 import CarouselTxtBox from './CarouselTxtBox'
+import { getCarouselNews } from '@/api/homePage'
+
+const CAROUSEL_IMAGE_URL_KEY = 'CAROUSEL_IMAGE_URL'
 
     export default {
         name:'CarouselContainer',
@@ -24,7 +27,29 @@ import CarouselTxtBox from './CarouselTxtBox'
         data() {
             return {
                 activeIndex: null,
+                newsList: []
             }
+        },
+        computed: {
+            //轮播的图片列表
+            imgListForCarousel() {
+                let imgs = []
+                this.newsList.forEach(news => {
+                    let extraObj = JSON.parse(news.extra)
+                    imgs.push(extraObj[CAROUSEL_IMAGE_URL_KEY])
+                })
+                return imgs
+            }
+        }, 
+        created() {
+            getCarouselNews(5).then(resp => {
+                this.newsList = resp
+            }).catch(error => {
+                this.$message({
+                    message: '轮播加载失败',
+                    type: 'error'
+                })
+            })
         },
         mounted() {
             this.$nextTick(() => {

@@ -7,7 +7,7 @@
         indicator-position="none"
         @change="handleChange"
         >
-        <el-carousel-item v-for="(item, index) in imgResources" :key="'轮播图片'+index">
+        <el-carousel-item v-for="(item, index) in imgList" :key="'轮播图片'+index">
             <a :href="item" target="_blank">
                 <el-image
                     :src="item"
@@ -31,6 +31,13 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
     export default {
         //轮播图片的盒子
         name:'CarouselImgBox',
+        props: {
+            imgList: {
+                type: Array,
+                default: [],
+                required: true
+            }
+        },
         data() {
             return {
                 screenWidth: undefined,
@@ -101,16 +108,6 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
         }
     }
 
-const imgs = [
-    'http://news.pku.edu.cn/images/2021-03/b816f03ccb78427e8a608a61af83a454.jpg',
-    'http://news.pku.edu.cn/images/2021-03/b2eb70d25bed46d18b22fe4ee49b9078.jpg',
-    'http://news.pku.edu.cn/images/2021-03/18b06166d596494ca4142f02c8eebab1.jpeg',
-    'http://news.jxufe.edu.cn/uploadfile/82/1618880686944.jpg',
-    'http://www.news.zju.edu.cn/_upload/article/images/62/97/8613225d4b7893d6d7aa8b8cf3f3/706276a0-4331-494a-846f-6fe131fa11f1.jpg',
-    'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-    'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-    'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-]        
 </script>
 
 <style lang="scss">

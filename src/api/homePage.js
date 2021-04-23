@@ -27,3 +27,18 @@ export function getHeadlines() {
         method: 'get'
     })
 }
+
+/**
+ * 查询轮播新闻
+ * @param amount 查询几个轮播新闻
+ * @returns 
+ */
+export function getCarouselNews(amount) {
+    return request({
+        url: `${prefix}/carouselNews`,
+        method: 'get',
+        params: {
+            amount
+        }
+    })
+}
