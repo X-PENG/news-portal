@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <back-to-top :custom-style="myBackToTopStyle" :visibility-height="300" :back-position="50" transition-name="fade" />
+        <back-to-top :custom-style="myBackToTopStyle" :visibility-height="300" :back-position="0" transition-name="fade" />
     </div>
 </template>
 
@@ -237,6 +237,7 @@ function getDefaultNewsInfo(){
 
         &:hover {
             background-color: rgba($color: #FFFFFF, $alpha: 1.0);
+            border: 1px solid #e0e0e0;
             .Icon {
                 fill: #94070a;
             }
