@@ -3,27 +3,19 @@
        <div class="app-header-content">
            <el-row type="flex" align="middle" style="width:100%" >
                <el-col :span="7">
-                   <h1 class="app-logo">
+                   <router-link :to="{ name: '首页'}">
+                        <el-image
+                            style="width: 100%; height: 100%"
+                            :src="logoUrl">
+                        </el-image>
+                   </router-link>
+                   <!-- <h1 class="app-logo">
                        <router-link :to="{ name: '首页'}">
-                            Logo
+                           Logo
                        </router-link>
-                   </h1>
+                   </h1> -->
                </el-col>
                <el-col :span="17">
-                   <!-- <div class="app-header-tool"> -->
-                        <!-- <div class="f-search" style="background: none;">
-                            <input type="text" style="width: 0px; border:0;padding:0">
-                            <button><i class="fa fa-lg fa-search" style="color: rgb(255, 255, 255);"></i></button>
-                        </div>                        -->
-                        <!-- <el-input 
-                            v-model="searchText"
-                            style="width: 300px"
-                            size="small" 
-                            placeholder="请输入..."
-                            suffix-icon="el-icon-search"
-                        >
-                        </el-input> -->
-                   <!-- </div> -->
                    <MyNav/>
                </el-col>
            </el-row>
@@ -39,7 +31,7 @@ import MyNav from './components/MyNav'
         components: { MyNav },
         data() {
             return {
-                searchText: ''
+                logoUrl: require('@/assets/myLogo.png')
             }
         }
     }
