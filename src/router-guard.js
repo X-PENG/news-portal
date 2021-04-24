@@ -18,7 +18,13 @@ router.beforeEach(async(to, from, next) => {
   next()
 })
 
-router.afterEach(() => {
+router.afterEach((to, from) => {
   // finish progress bar
   NProgress.done()
+
+  // console.log(to.matched)
+  //没有匹配到任何路由，就回到首页
+  if(to.matched.length == 0) {
+      router.replace({name: '首页'})
+  }
 })
