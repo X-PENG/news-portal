@@ -1,5 +1,8 @@
 <template>
     <div class="news-detail">
+        <div v-if="columnInfoInit" class="position-nav-container">
+            <PositionNav :newsColumnInfo="columnInfo"/>
+        </div>
         <div class="preview-container">
             <div class="peng-news-show-container" v-loading='loading'>
                 <!-- 江财heahder -->
@@ -42,6 +45,7 @@
 
 <script>
 import { getOneNews } from '@/api/newsDetail'
+import PositionNav from './PositionNav'
 
 function getDefaultNewsInfo(){
     return {
@@ -53,15 +57,20 @@ function getDefaultNewsInfo(){
     export default {
         // 新闻详情组件
         name:'NewsDetail',
+        components: { PositionNav },
         props: {
             //通过路由传参
             newsId: {
-                required: true                
+                type: String | Number,
+                default: undefined,
+                required: true
             }
         },
         data() {
             return {
                 loading: false,
+                columnInfoInit: false,
+                columnInfo: {},
                 newsInfo: getDefaultNewsInfo(),
                 authorInfo: {
                     time: '0000-00-00',
@@ -99,6 +108,9 @@ function getDefaultNewsInfo(){
                             this.$router.back()
                             return 
                         }
+
+                        this.columnInfo = this.newsInfo.column
+                        this.columnInfoInit = true
 
                         //填充作者信息
                         this.authorInfo.time = this.newsInfo.showPubTime || this.authorInfo.time

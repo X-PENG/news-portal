@@ -32,7 +32,7 @@ function getDefaultQueryParam() {
         props: {
             //通过路由传参
             colId: {
-                type: String,
+                type: String | Number,
                 default: undefined,
                 required: true
             }
