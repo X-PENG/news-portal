@@ -34,18 +34,22 @@
                             <span>编辑：{{ authorInfo.editors }}</span><i>|</i>    						
                             <span>审核：{{ authorInfo.reviewers }}</span>    						
                     </el-col>
-                </el-row> 
+                </el-row>
 
                 <div class="peng-news-show-content" v-html="newsInfo.content">
                 </div>
-            </div> 
-        </div>        
+            </div>
+        </div>
+
+        <back-to-top :custom-style="myBackToTopStyle" :visibility-height="300" :back-position="50" transition-name="fade" />
     </div>
 </template>
 
 <script>
 import { getOneNews } from '@/api/newsDetail'
 import PositionNav from './PositionNav'
+import BackToTop from '@/components/BackToTop'
+
 
 function getDefaultNewsInfo(){
     return {
@@ -57,7 +61,7 @@ function getDefaultNewsInfo(){
     export default {
         // 新闻详情组件
         name:'NewsDetail',
-        components: { PositionNav },
+        components: { PositionNav, BackToTop },
         props: {
             //通过路由传参
             newsId: {
@@ -79,6 +83,16 @@ function getDefaultNewsInfo(){
                     imgSource: '',
                     editors: '',
                     reviewers: ''
+                },
+                // customizable button style, show/hide critical point, return position
+                myBackToTopStyle: {
+                    right: '50px',
+                    bottom: '50px',
+                    width: '40px',
+                    height: '40px',
+                    opacity: 0.8,
+                    'border-radius': '4px',
+                    'line-height': '45px', // 请保持与高度一致以垂直居中 Please keep consistent with height to center vertically
                 }
             }
         },
@@ -209,6 +223,24 @@ function getDefaultNewsInfo(){
         min-width: 70%;
         max-width: 70%;
         height: auto;
+    }
+
+    // 定义回到顶部的按钮的样式
+    .back-to-ceiling {
+        //在此处定义背景色，不要在内联样式style里面定义背景色，否则hover改变背景色会没用
+        background-color: #94070a;
+        
+        .Icon {
+            //设置箭头图标的颜色
+            fill: #FFFFFF;
+        }
+
+        &:hover {
+            background-color: rgba($color: #FFFFFF, $alpha: 1.0);
+            .Icon {
+                fill: #94070a;
+            }
+        }
     }
 }
 </style>
