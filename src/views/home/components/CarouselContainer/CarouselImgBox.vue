@@ -7,8 +7,8 @@
         indicator-position="none"
         @change="handleChange"
         >
-        <el-carousel-item v-for="(item, index) in imgList" :key="'轮播图片'+index">
-            <a :href="item" target="_blank">
+        <el-carousel-item v-for="(item, index) in newsInfoList" :key="'轮播图片'+index">
+            <!-- <a :href="item" target="_blank">
                 <el-image
                     :src="item"
                 >
@@ -16,7 +16,16 @@
                         <i class="el-icon-picture-outline"></i>
                     </div>
                 </el-image>
-            </a>
+            </a> -->
+            <router-link :to="{name: '新闻详情', params: {newsId: item.id}}">
+                <el-image
+                    :src="getCarouselImgUrl(item)"
+                >
+                    <div slot="error" class="error-image-slot">
+                        <i class="el-icon-picture-outline"></i>
+                    </div>
+                </el-image>
+            </router-link>
         </el-carousel-item>
     </el-carousel>
 </template>
@@ -32,7 +41,7 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
         //轮播图片的盒子
         name:'CarouselImgBox',
         props: {
-            imgList: {
+            newsInfoList: {
                 type: Array,
                 default: [],
                 required: true
@@ -43,8 +52,7 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
                 screenWidth: undefined,
                 timer: null,
                 //动态控制轮播的高度，达到自适应
-                carouselHeight: null,
-                imgResources: imgs
+                carouselHeight: null
             }
         },
         mounted() {
@@ -104,6 +112,10 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
             setActiveItem(index) {
                 // console.log('设置显示的图片 index=' + index)
                 this.$refs.carousel.setActiveItem(index)
+            },
+            getCarouselImgUrl(newsInfo) {
+                //从轮播新闻的信息中得到轮播图地址
+                return JSON.parse(newsInfo.extra)['CAROUSEL_IMAGE_URL']            
             }
         }
     }

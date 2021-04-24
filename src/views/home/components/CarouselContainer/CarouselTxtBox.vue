@@ -9,13 +9,19 @@
     >
         <el-carousel-item v-for="(item, index) in newsInfoList" :key="'轮播新闻描述'+index">
             <div class="slide-txt">
-                <h3><a href="https://news.pku.edu.cn/ztwz111/jdbnzt/">【{{ index+1 }}】{{ item.title }}</a></h3>
+                <h3>
+                    <!-- <a href="https://news.pku.edu.cn/ztwz111/jdbnzt/">【{{ index+1 }}】{{ item.title }}</a> -->
+                    <router-link :to="{name: '新闻详情', params: {newsId: item.id}}">{{ item.title }}</router-link>
+                </h3>
                 <p class="item-date-view"><span>{{ formatPubTime(item.showPubTime) }}</span>
                 </p>
                 <p class="item-detail"> 
-                    <a href="https://news.pku.edu.cn/ztwz111/jdbnzt/">
+                    <!-- <a href="https://news.pku.edu.cn/ztwz111/jdbnzt/">
                         {{ item.articleFragmentForShow }}
-                    </a>
+                    </a> -->
+                    <router-link :to="{name: '新闻详情', params: {newsId: item.id}}">
+                        {{ item.articleFragmentForShow }}
+                    </router-link>
                 </p>
             </div>
             <!-- <div class="slide-txt">

@@ -8,13 +8,20 @@
                 </span>
             </div>
             <div v-if="isShowImg" class="item-img" :class="{'item-img-when-ImgShowRight': isShowImg && imgShowRight}">
-                <a class="imgResponsive" href="http://news.pku.edu.cn/xwzh/b0d100f86a94487596d5f023157d8565.htm">
+                <router-link class="imgResponsive" :to="{name: '新闻详情', params: {newsId: newsInfo.id}}">
+                <!-- <a class="imgResponsive"> -->
                     <img :src="imgForShowOnNewsList" alt="加载失败" title="" style="outline: red dashed 1px;">
-                </a>
+                <!-- </a> -->
+                </router-link>
             </div>
             <div class="item-txt" :class="{'item-txt-when-ImgShowRight': isShowImg && imgShowRight, 'item-txt-when-notShowImg': !isShowImg}">
                 <div>
-                    <h3><a href="http://news.pku.edu.cn/xwzh/b0d100f86a94487596d5f023157d8565.htm">{{ newsInfo.title }}</a></h3>
+                    <h3>
+                        <router-link :to="{name: '新闻详情', params: {newsId: newsInfo.id}}">
+                            <!-- <a>{{ newsInfo.title }}</a> -->
+                            {{ newsInfo.title }}
+                        </router-link>
+                    </h3>
                 </div>
                 <p>{{ newsInfo.articleFragmentForShow }}</p>
             </div>
@@ -40,8 +47,9 @@
             }
         },
         created(){
-            console.log('新闻信息')
-            console.log(this.newsInfo)
+            //for debug
+            // console.log('新闻信息')
+            // console.log(this.newsInfo)
         },
         data() {
             return {

@@ -7,6 +7,8 @@ Vue.use(VueRouter);
 import Layout from '@/layout'
 import Home from '@/views/home'
 import NewsList from '@/views/NewsList'
+import NewsDetail from '@/components/NewsDetail'
+
 const routes = [
   {
     path: "",
@@ -21,12 +23,18 @@ const routes = [
         name: '栏目新闻列表',
         component: NewsList,
         props: true
+      }, {
+        path: '/newsDetail/:newsId',
+        name: '新闻详情',
+        component: NewsDetail,
+        props: true
       }
     ]
   }
 ];
 
 const router = new VueRouter({
+  scrollBehavior: () => ({ y: 0 }),
   routes,
 });
 

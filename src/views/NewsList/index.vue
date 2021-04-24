@@ -8,7 +8,7 @@
             {{ columnInfo.title }}
         </h2>
 
-        <NewsItem v-for="(item, index) in queryResult.records" :key="'新闻项'+index" :newsInfo="item" :imgShowRight="false"/>
+        <NewsItem v-for="(item, index) in queryResult.records" :key="'新闻项'+index" :newsInfo="item" :imgShowRight="imgShowRight"/>
     </div>
 </template>
 
@@ -30,6 +30,7 @@ function getDefaultQueryParam() {
         name:'NewsList',
         components: { NewsItem },
         props: {
+            //通过路由传参
             colId: {
                 type: String,
                 default: undefined,
@@ -47,6 +48,15 @@ function getDefaultQueryParam() {
                     size: defaultPageSize,
                     records: []                  
                 }
+            }
+        },
+        computed: {
+            imgShowRight() {
+                let settingsInfo = this.columnInfo.settings
+                if(settingsInfo && settingsInfo.showImgOnTheRight) {
+                    return true
+                }
+                return false
             }
         },
         created() {

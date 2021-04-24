@@ -1,6 +1,6 @@
 <template>
     <div>
-        <CarouselImgBox ref="carouselImgBox" :imgList="imgListForCarousel" @change-img="handleChangeImg"/>
+        <CarouselImgBox ref="carouselImgBox" :newsInfoList="newsList" @change-img="handleChangeImg"/>
 
         <CarouselTxtBox ref="carouselTxtBox" :newsInfoList="newsList"/>
 
@@ -19,8 +19,6 @@ import CarouselImgBox from './CarouselImgBox'
 import CarouselTxtBox from './CarouselTxtBox'
 import { getCarouselNews } from '@/api/homePage'
 
-const CAROUSEL_IMAGE_URL_KEY = 'CAROUSEL_IMAGE_URL'
-
     export default {
         name:'CarouselContainer',
         components: { CarouselImgBox, CarouselTxtBox },
@@ -30,17 +28,6 @@ const CAROUSEL_IMAGE_URL_KEY = 'CAROUSEL_IMAGE_URL'
                 newsList: []
             }
         },
-        computed: {
-            //轮播的图片列表
-            imgListForCarousel() {
-                let imgs = []
-                this.newsList.forEach(news => {
-                    let extraObj = JSON.parse(news.extra)
-                    imgs.push(extraObj[CAROUSEL_IMAGE_URL_KEY])
-                })
-                return imgs
-            }
-        }, 
         created() {
             getCarouselNews(5).then(resp => {
                 this.newsList = resp

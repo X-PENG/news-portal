@@ -4,9 +4,12 @@
         element-loading-spinner="el-icon-loading">
     <span class="headerLine-label">头条</span>
     <h2>
-      <a href="xwzh/2706e0ba60304a41859b2a083f13226c.htm">
+      <!-- <a href="xwzh/2706e0ba60304a41859b2a083f13226c.htm">
             {{ newsInfo.title }}
-        </a>
+        </a> -->
+        <router-link :to="{name: '新闻详情', params: {newsId: newsInfo.id}}">
+          {{ newsInfo.title }}
+        </router-link>
     </h2>
   </div>
 </template>
