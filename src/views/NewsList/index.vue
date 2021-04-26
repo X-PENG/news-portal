@@ -8,7 +8,14 @@
             {{ columnInfo.title }}
         </h2>
 
-        <NewsItem v-for="(item, index) in queryResult.records" :key="'新闻项'+index" :newsInfo="item" :imgShowRight="imgShowRight"/>
+        <el-row :gutter="gutter" v-if='completeInitialization'>
+            <el-col :span="itemListSpans">
+                <NewsItem v-for="(item, index) in queryResult.records" :key="'新闻项'+index" :newsInfo="item" :imgShowRight="imgShowRight"/>
+            </el-col>
+            <el-col :span="subColumnsDivSpans" v-if="subColumnsDivSpans != 0">
+                <SubColumnsBox :parentId='columnInfo.id'/>
+            </el-col>
+        </el-row>
 
         <!-- 分页组件 -->
         <div class="my-pagination-container">
@@ -27,6 +34,7 @@
 <script>
 import NewsItem from '@/components/NewsItem'
 import Pagination from "@/components/Pagination";
+import SubColumnsBox from './SubColumnsBox';
 import { newsListPageByColId } from '@/api/newsList'
 
 const defaultPage = 1
@@ -41,7 +49,7 @@ function getDefaultQueryParam() {
 
     export default {
         name:'NewsList',
-        components: { NewsItem, Pagination },
+        components: { NewsItem, SubColumnsBox, Pagination },
         props: {
             //通过路由传参
             colId: {
@@ -53,6 +61,7 @@ function getDefaultQueryParam() {
         data() {
             return {
                 loading: false,
+                completeInitialization: false,
                 queryParam: getDefaultQueryParam(),
                 columnInfo: {},
                 queryResult: {
@@ -60,7 +69,10 @@ function getDefaultQueryParam() {
                     current: defaultPage,
                     size: defaultPageSize,
                     records: []                  
-                }
+                },
+                gutter: 0,
+                itemListSpans: 24,
+                subColumnsDivSpans: 0
             }
         },
         computed: {
@@ -78,27 +90,44 @@ function getDefaultQueryParam() {
         },
         methods: {
             init() {
-                this.queryList()
-            },
-            queryList() {
-                this.loading = true
-                newsListPageByColId(this.colId, this.queryParam).then(resp => {
-                    this.columnInfo = resp.column
-                    //是一个分页对象
-                    this.queryResult = resp.news
+                this.queryList().then(hasChildren => {
+                    //有子栏目的话，就渲染子栏目盒子（SubColumnsBox）组件
+                    if(hasChildren) {
+                        this.gutter = 10
+                        this.itemListSpans = 17
+                        this.subColumnsDivSpans = 7
+                    }
+                    //完成初始化
+                    this.completeInitialization = true
                     this.loading = false
                 }).catch(error => {
-                    this.loading = false
-                    this.$message({
-                        message: '加载新闻列表失败',
-                        type: 'error'
+                    this.completeInitialization = true
+                })
+            },
+            queryList() {
+                return new Promise((resolve, reject) => {
+                    this.loading = true
+                    newsListPageByColId(this.colId, this.queryParam).then(resp => {
+                        this.columnInfo = resp.column
+                        //是一个分页对象
+                        this.queryResult = resp.news
+                        resolve(this.columnInfo.isHasChildren)
+                    }).catch(error => {
+                        this.loading = false
+                        this.$message({
+                            message: '加载新闻列表失败',
+                            type: 'error'
+                        })
+                        reject()
                     })
                 })
             },
             handlePagination({ page, limit }) {
                 this.queryParam.page = page;
                 this.queryParam.pageSize = limit;
-                this.queryList();
+                this.queryList().then(() => {
+                    this.loading = false
+                })
             }, 
         }
     }
