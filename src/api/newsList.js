@@ -11,3 +11,15 @@ export function newsListPageByColId(colId, queryParam) {
         params: queryParam
     })
 }
+
+/**
+ * 查询子栏目列表
+ * @param {*} colId 
+ * @returns 
+ */
+export function subColList(colId) {
+    return request({
+        url: `/frontend/newsList/subColList/${colId}`,
+        method: 'get'
+    })    
+}

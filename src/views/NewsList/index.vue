@@ -13,7 +13,7 @@
                 <NewsItem v-for="(item, index) in queryResult.records" :key="'新闻项'+index" :newsInfo="item" :imgShowRight="imgShowRight"/>
             </el-col>
             <el-col :span="subColumnsDivSpans" v-if="subColumnsDivSpans != 0">
-                <SubColumnsBox :parentId='columnInfo.id'/>
+                <SubColumnsBox :parentId='columnInfo.id' :parentColTitle="columnInfo.title"/>
             </el-col>
         </el-row>
 
@@ -93,9 +93,9 @@ function getDefaultQueryParam() {
                 this.queryList().then(hasChildren => {
                     //有子栏目的话，就渲染子栏目盒子（SubColumnsBox）组件
                     if(hasChildren) {
-                        this.gutter = 10
-                        this.itemListSpans = 17
-                        this.subColumnsDivSpans = 7
+                        this.gutter = 30
+                        this.itemListSpans = 18
+                        this.subColumnsDivSpans = 6
                     }
                     //完成初始化
                     this.completeInitialization = true
