@@ -1,8 +1,8 @@
 <template>
     <div class="search-box">
-        <el-input v-model="searchText" placeholder="">
+        <el-input v-model="searchText" placeholder="" @keyup.enter.native="handleSearch" clearable @clear="searchText = null">
             <template slot="append">
-                <el-button>
+                <el-button @click="handleSearch">
                     <i class="fa fa-lg fa-search"></i>
                 </el-button>
             </template>
@@ -15,7 +15,19 @@
         name:'SearchBox',
         data() {
             return {
-                searchText: ''
+                searchText: null
+            }
+        },
+        methods: {
+            handleSearch() {
+                if(!this.searchText || this.searchText.trim() === '') {
+                    this.$message({
+                        message: '请输入搜索条件',
+                        type: 'error'
+                    })
+                    return
+                }
+                this.$router.push({ name: '搜索', query: { condition: this.searchText } })
             }
         }
     }

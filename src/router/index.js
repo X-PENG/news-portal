@@ -8,6 +8,7 @@ import Layout from '@/layout'
 import Home from '@/views/home'
 import NewsList from '@/views/NewsList'
 import NewsDetail from '@/components/NewsDetail'
+import SearchResult from '@/views/SearchResult'
 
 const routes = [
   {
@@ -18,6 +19,10 @@ const routes = [
         path: '/',
         name: '首页',
         component: Home,
+      }, {
+        path: '/search',
+        name: '搜索',
+        component: SearchResult
       }, {
         path: '/newsList/:colId',
         name: '栏目新闻列表',
