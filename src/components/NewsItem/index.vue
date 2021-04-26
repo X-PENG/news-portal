@@ -1,13 +1,13 @@
 <template>
     <div class="news-item" :class="{'news-item-when-ImgShowRight': !isShowImg || imgShowRight}">
-        <section class="imgHover">
+        <section ref="sectionContainer" class="imgHover" :style="{'min-height': contentMinHeight}">
             <div class="item-lf">
                 <span class="item-date">
                     {{ yearOfTime + '/' + monthOfTime + '/' }}
                     <strong>{{ dateOfTime }}</strong>
                 </span>
             </div>
-            <div v-if="isShowImg" class="item-img" :class="{'item-img-when-ImgShowRight': isShowImg && imgShowRight}">
+            <div v-if="isShowImg" class="item-img" :class="{'item-img-when-ImgShowRight': isShowImg && imgShowRight}" :style="{'max-height': contentMinHeight}">
                 <router-link class="imgResponsive" :to="{name: '新闻详情', params: {newsId: newsInfo.id}}">
                 <!-- <a class="imgResponsive"> -->
                     <img :src="imgForShowOnNewsList" alt="加载失败" title="" style="outline: red dashed 1px;">
@@ -30,6 +30,9 @@
 </template>
 
 <script>
+//参照北大的比例
+const percentage =  180/970
+
     export default {
         //该组件表示新闻列表中的一个新闻
         name:'NewsItem',
@@ -51,13 +54,26 @@
             // console.log('新闻信息')
             // console.log(this.newsInfo)
         },
+        mounted() {
+            //在挂载完成之后，获取宽度从而设置高度
+            this.$nextTick(() => {
+                //this.$refs.sectionContainer是DOM元素，而clientWidth是DOM元素的属性
+                let initWidth = this.$refs.sectionContainer.clientWidth
+                this.contentMinHeight = (initWidth * percentage) + 'px'
+                console.log('初始section的宽 * 高 =' + initWidth + '*' + this.contentMinHeight)
+            })            
+        },
         data() {
             return {
-                //是否显示图片
-                // isShowImg: true,
+                contentMinHeight: undefined
             }
         },
         computed: {
+            screenWidth() {
+                let newWidth = this.$store.state.onresize.screenWidth
+                console.log('重新计算NewsItem组件的screenWidth属性 = ' + newWidth)
+                return newWidth
+            },
             imgForShowOnNewsList() {
                 let imgUrl = this.newsInfo.imgForShowOnNewsList
                 if(!imgUrl || (imgUrl = imgUrl.trim()) === '') {
@@ -89,14 +105,26 @@
                 }
                 return date
             }
-        }
+        },
+        watch: {
+            //监听属性值的改变
+            screenWidth(val){
+                console.log('监听到NewsItem组件的screenWidth属性改变 newVal='+val)
+                this.$nextTick(() => {
+                    //clientWidth是dom元素的属性，不是css属性
+                    let newWidth = this.$refs.sectionContainer.clientWidth
+                    this.contentMinHeight = (newWidth * percentage) + 'px'
+                    console.log('新的宽*高 = ' + newWidth + '*' + this.contentMinHeight)
+                })
+            }
+        },        
     }
 </script>
 
 <style lang="scss">
 //内容的最小高度。即窗口最宽时的高度
 // 北大的 高:宽 = 180/970 = 0.185567
-$content-min-height: 212.3px;
+// $content-min-height: 212.3px;
 // $content-min-height: 189px;
 
 .news-item {
@@ -106,7 +134,7 @@ $content-min-height: 212.3px;
         padding: 38px 0;
         border-bottom: 1px solid #ededed;
         transition: all 0.3s ease-in-out;
-        min-height: $content-min-height;
+        // min-height: $content-min-height;//设置为响应式的
     }
 
     /**可以不用，重复定义了
@@ -233,7 +261,7 @@ $content-min-height: 212.3px;
             position: relative;
             z-index: 30;
             //当窗口变窄，图片宽度变小，高度也一定变小，而窗口最宽时，图片高度最大，且是内容高度$content-min-height，所以max-height设置成$content-min-height即可
-            max-height: $content-min-height;
+            // max-height: $content-min-height;//设置为响应式的
             overflow: hidden;
 
             //当在右边显示图片时的样式
