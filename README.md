@@ -4,6 +4,14 @@
 
 
 
+## 关联项目
+
+- [news](https://github.com/X-PENG/news)：后端项目。
+
+- [news-admin](https://github.com/X-PENG/news-admin)：管理后台。
+
+
+
 ## 启动项目
 
 
