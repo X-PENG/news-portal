@@ -300,6 +300,10 @@ const percentage =  180/970
             margin-left: 48%;//使用百分比布局。显示文本的盒子占52% = 100% - 48%
             position: relative;
             z-index: 30;
+            
+            * {
+                margin: 0;
+            }
 
             //当在右边显示图片时的样式
             &.item-txt-when-ImgShowRight {
