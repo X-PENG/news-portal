@@ -1,6 +1,6 @@
 <template>
     <div>
-        <CarouselImgBox ref="carouselImgBox" :newsInfoList="newsList" @change-img="handleChangeImg"/>
+        <CarouselImgBox ref="carouselImgBox" :newsInfoList="newsList" :autoplay="autoplay" @change-img="handleChangeImg"/>
 
         <CarouselTxtBox ref="carouselTxtBox" :newsInfoList="newsList"/>
 
@@ -25,7 +25,9 @@ import { getCarouselNews } from '@/api/homePage'
         data() {
             return {
                 activeIndex: null,
-                newsList: []
+                newsList: [],
+                autoplay: true,
+                timer: null
             }
         },
         created() {
@@ -56,6 +58,16 @@ import { getCarouselNews } from '@/api/homePage'
                 //手动切换轮播图
                 this.$refs.carouselImgBox.setActiveItem(index)
                 this.$refs.carouselTxtBox.setActiveItem(index)
+
+                //设置成不自动播放
+                this.autoplay = false
+                //先删除旧timer，再新建一个timer
+                window.clearTimeout(this.timer)
+                let that = this
+                this.timer = setTimeout(function() {
+                    //5秒后再自动播放
+                    that.autoplay = true
+                }, 3000)
             }
         }
     }

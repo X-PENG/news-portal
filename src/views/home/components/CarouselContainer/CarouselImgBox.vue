@@ -5,6 +5,8 @@
         class="carousel-box"
         :height="carouselHeight"
         indicator-position="none"
+        :autoplay="autoplay"
+        :interval="4000"
         @change="handleChange"
         >
         <el-carousel-item v-for="(item, index) in newsInfoList" :key="'轮播图片'+index">
@@ -45,6 +47,10 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
                 type: Array,
                 default: [],
                 required: true
+            },
+            autoplay: {
+                type: Boolean,
+                default: true
             }
         },
         data() {
