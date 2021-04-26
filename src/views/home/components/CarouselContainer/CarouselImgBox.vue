@@ -49,10 +49,15 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
         },
         data() {
             return {
-                screenWidth: undefined,
-                timer: null,
                 //动态控制轮播的高度，达到自适应
                 carouselHeight: null
+            }
+        },
+        computed: {
+            screenWidth() {
+                let newWidth = this.$store.state.onresize.screenWidth
+                console.log('重新计算CarouselImgBox组件的screenWidth属性 = ' + newWidth)
+                return newWidth
             }
         },
         mounted() {
@@ -69,37 +74,16 @@ const percentage = 0.561//轮播图 高:宽 参照北大的
                 //设置轮播组件的高度
                 this.carouselHeight =  (carouselWidth * percentage) + 'px'
             })
-            const that = this
-            //处理resize事件
-            window.onresize = () => {
-                return (() => {
-                    window.screenWidth = document.body.clientWidth
-                    //变更screenWidth属性值
-                    that.screenWidth = window.screenWidth
-                })()
-            }
         },
         watch: {
             //监听属性值的改变
             screenWidth(val){
-                // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
-                if(!this.timer){
-                    // 一旦监听到的screenWidth值改变，就将其重新赋给data里的screenWidth
-                    this.screenWidth = val
-                    this.timer = true
-                    let that = this
-                    setTimeout(function(){
-                        that.$nextTick(() => {
-                            // 打印screenWidth变化的值
-                            console.log(that.screenWidth)
-                            let newWidth = that.$refs.carousel.$el.clientWidth
-                            console.log('轮播图新的宽度')
-                            console.log(newWidth)
-                            that.carouselHeight =  (newWidth * percentage) + 'px'
-                        })
-                        that.timer = false
-                    }, 500)
-                }
+                console.log('监听到CarouselImgBox组件的screenWidth属性改变 newVal='+val)
+                this.$nextTick(() => {
+                    let newWidth = this.$refs.carousel.$el.clientWidth
+                    this.carouselHeight =  (newWidth * percentage) + 'px'
+                    console.log('轮播图新的宽*高 = ' + newWidth + '*' + this.carouselHeight)
+                })
             }
         },
         methods: {
