@@ -77,8 +77,7 @@ function getDefaultQueryParam() {
         },
         computed: {
             imgShowRight() {
-                let settingsInfo = this.columnInfo.settings
-                if(settingsInfo && settingsInfo.showImgOnTheRight) {
+                if(!!this.columnInfo.showImgOnTheRight) {
                     return true
                 }
                 return false
